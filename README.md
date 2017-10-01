@@ -4,9 +4,19 @@ Hibernate tutorial 1 : JavaSE 1.8 + Hibernate5 + Maven4 + MySQL Basic configurat
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/nfriaa/hibernate-tutorial1/issues) [![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://github.com/nfriaa/hibernate-tutorial1) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nfriaa/hibernate-tutorial1/blob/master/LICENSE)
 
 ## Description
-A sample code to configure a maven project and test connection to MySQL database using Hibernate ORM.
+A sample code to configure a maven project and test connection to MySQL database using Hibernate.
 
-## 1. Create maven project and add dependencies
+## 1. Create database / tables
+```
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+## 2. Create maven project and add dependencies
 ```
 <!-- MySQL connector -->
 <dependency>
@@ -22,7 +32,7 @@ A sample code to configure a maven project and test connection to MySQL database
     <version>5.2.11.Final</version>
 </dependency>
 ```
-## 2. Create the hibernate config file 'hibernate.cfg.xml'
+## 3. Create the hibernate config file 'hibernate.cfg.xml'
 ```
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -39,18 +49,8 @@ A sample code to configure a maven project and test connection to MySQL database
 </hibernate-configuration>
 ```
 
-## 3. Create HibernateUtil.java 
+## 4. Create HibernateUtil.java 
 Hibernate Utility class with a convenient method to get Session Factory
 
-## 4. Create a main Application class
+## 5. Create a main Application class
 A class whith main method for testing all this... 
-
-
-```
-         __      _             
-        / _|    (_)            
-  _ __ | |_ _ __ _  __ _  __ _ 
- | '_ \|  _| '__| |/ _` |/ _` |
- | | | | | | |  | | (_| | (_| |
- |_| |_|_| |_|  |_|\__,_|\__,_|
-``` 
