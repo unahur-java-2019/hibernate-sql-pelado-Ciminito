@@ -5,7 +5,7 @@ Hibernate Basic configuration
 
 ## Description
 A sample code to configure maven project and test connection to MySQL database and execute some queries using Hibernate.
-* JavaSE 1.8
+* JavaSE 8
 * Hibernate 5
 * Maven 4
 * MySQL 5
@@ -63,7 +63,7 @@ CREATE TABLE `persist_db`.`test` (
 ## 5. Create HibernateUtil.java 
 Hibernate Utility class with a convenient method to get Session Factory.
 
-## 6. Create a main Application class
+## 6. Create main Application class
 * a class whith main method to test connection
 * execute some queries in SQL mode (NativeQuery) : session.createNativeQuery() method
 * select, insert... and read results
