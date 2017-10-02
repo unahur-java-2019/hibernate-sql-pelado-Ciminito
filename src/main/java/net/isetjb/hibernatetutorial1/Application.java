@@ -3,6 +3,8 @@ package net.isetjb.hibernatetutorial1;
 import java.util.List;
 import java.util.Random;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  * Application class.
@@ -11,11 +13,18 @@ import org.hibernate.Session;
  */
 public class Application
 {
+    /**
+     * Attribute declaration for factory to share between methods.
+     */
+    private static SessionFactory factory;
 
     public static void main(String[] args)
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+        // Open connection  pool
+        factory = HibernateUtil.getSessionFactory();
+
+        Session session = factory.openSession();
+        Transaction transaction = session.beginTransaction();
 
         ///// SQL queries
         // Single result :
@@ -47,10 +56,11 @@ public class Application
             System.out.println("id:" + temp[0] + " ===> name:" + temp[1] + " ===> price:" + temp[2]);
         }
 
-        session.getTransaction().commit();
+        transaction.commit();
         session.close();
 
-        HibernateUtil.shutdown();
+        // Cleaning up connection pool
+        factory.close();
     }
 
 }

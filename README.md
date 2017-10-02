@@ -1,10 +1,14 @@
 # hibernate-tutorial1
-Hibernate tutorial 1 : JavaSE 1.8 + Hibernate5 + Maven4 + MySQL Basic configuration
+Hibernate Basic configuration
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/nfriaa/hibernate-tutorial1/issues) [![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://github.com/nfriaa/hibernate-tutorial1) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nfriaa/hibernate-tutorial1/blob/master/LICENSE)
 
 ## Description
 A sample code to configure maven project and test connection to MySQL database and execute some queries using Hibernate.
+* JavaSE 1.8
+* Hibernate 5
+* Maven 4
+* MySQL 5
 
 ## 1. Create database
 ```
@@ -34,7 +38,6 @@ CREATE TABLE `persist_db`.`test` (
     <artifactId>mysql-connector-java</artifactId>
     <version>6.0.6</version>
 </dependency>
-
 <!-- Hibernate -->
 <dependency>
     <groupId>org.hibernate</groupId>
@@ -47,11 +50,9 @@ CREATE TABLE `persist_db`.`test` (
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
-
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/persist_db</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
@@ -65,4 +66,4 @@ Hibernate Utility class with a convenient method to get Session Factory.
 ## 6. Create a main Application class
 * a class whith main method to test connection
 * execute some queries in SQL mode (NativeQuery) : session.createNativeQuery() method
-* select, insert... and read result
+* select, insert... and read results

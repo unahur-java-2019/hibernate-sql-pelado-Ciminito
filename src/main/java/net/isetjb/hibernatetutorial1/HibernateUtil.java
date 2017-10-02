@@ -1,20 +1,15 @@
 package net.isetjb.hibernatetutorial1;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 /**
- * Hibernate Utility class with a convenient method to get Session Factory
- * object.
+ * Singleton Hibernate Utility class with a method to get Session Factory.
  *
  * @author Nafaa Friaa (nafaa.friaa@isetjb.rnu.tn)
  */
 public class HibernateUtil
 {
-    private static StandardServiceRegistry registry;
     private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory()
@@ -23,37 +18,16 @@ public class HibernateUtil
         {
             try
             {
-                // Create registry
-                registry = new StandardServiceRegistryBuilder()
-                        .configure()
-                        .build();
-
-                // Create MetadataSources
-                MetadataSources sources = new MetadataSources(registry);
-
-                // Create Metadata
-                Metadata metadata = sources.getMetadataBuilder().build();
-
-                // Create SessionFactory
-                sessionFactory = metadata.getSessionFactoryBuilder().build();
-
-            } catch (Exception e)
+                // Create the SessionFactory from standard (hibernate.cfg.xml) config file.
+                sessionFactory = new Configuration().configure().buildSessionFactory();
+            } catch (Throwable ex)
             {
-                e.printStackTrace();
-                if (registry != null)
-                {
-                    StandardServiceRegistryBuilder.destroy(registry);
-                }
+                // Log the exception.
+                System.err.println("Initial SessionFactory creation failed." + ex);
+                throw new ExceptionInInitializerError(ex);
             }
         }
-        return sessionFactory;
-    }
 
-    public static void shutdown()
-    {
-        if (registry != null)
-        {
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
+        return sessionFactory;
     }
 }
