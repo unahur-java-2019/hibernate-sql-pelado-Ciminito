@@ -11,12 +11,12 @@ A sample code to configure maven project and test connection to MySQL database a
 * MySQL 5
 
 ## 1. Create database
-```
+```sql
 CREATE DATABASE `persist_db` /*!40100 DEFAULT CHARACTER SET utf8 */
 ```
 
 ## 2. Create tables
-```
+```sql
 CREATE TABLE `persist_db`.`product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE `persist_db`.`test` (
 ```
 
 ## 3. Create maven project and add dependencies
-```
+```xml
 <!-- MySQL connector -->
 <dependency>
     <groupId>mysql</groupId>
@@ -47,7 +47,7 @@ CREATE TABLE `persist_db`.`test` (
 ```
 
 ## 4. Create the hibernate config file 'hibernate.cfg.xml'
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
