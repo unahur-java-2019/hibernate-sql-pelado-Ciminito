@@ -53,7 +53,7 @@ CREATE TABLE `persist_db`.`test` (
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/persist_db</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/persist_db?useTimezone=true&amp;serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
     </session-factory>
