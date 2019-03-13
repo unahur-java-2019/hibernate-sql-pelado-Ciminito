@@ -1,9 +1,9 @@
 package net.isetjb.hibernatetutorial1;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -16,51 +16,41 @@ public class Application
     /**
      * Attribute declaration for factory to share between methods.
      */
-    private static SessionFactory factory;
-
     public static void main(String[] args)
     {
-        // Open connection  pool
-        factory = HibernateUtil.getSessionFactory();
-
-        Session session = factory.openSession();
+        Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
 
-        ///// SQL queries
-        // Single result :
-        String sql1 = "SELECT VERSION()";
-        String result1 = (String) session.createNativeQuery(sql1).getSingleResult();
-        System.out.println("Result1 ==> " + result1);
-
-        // List result :
-        String sql2 = "SHOW TABLES";
-        List result2 = session.createNativeQuery(sql2).getResultList();
-        System.out.println("Result2 ==> ");
-        for (Object temp : result2)
-        {
-            System.out.println(temp);
-        }
-
-        // Insert record :
-        int randomNumber = new Random().nextInt(100);
-        String sql3 = "INSERT INTO product VALUES(null, 'Qwerty_" + randomNumber + "' , " + randomNumber + ")";
-        int result3 = (int) session.createNativeQuery(sql3).executeUpdate();
-        System.out.println("Result3 ==> " + result3);
-
-        // List array result :
-        String sql4 = "SELECT * FROM product";
-        List<Object[]> result4 = session.createNativeQuery(sql4).getResultList();
-        System.out.println("Result4 ==> ");
-        for (Object[] temp : result4)
-        {
-            System.out.println("id:" + temp[0] + " ===> name:" + temp[1] + " ===> price:" + temp[2]);
-        }
+        borrarProductos(session);
+        insertarProductos(session);
+        listarProductos(session);
 
         transaction.commit();
         session.close();
+        HibernateUtil.closeSessionFactory();
+    }
 
-        // Cleaning up connection pool
-        factory.close();
+    private static void borrarProductos(Session session) {
+        session.createNativeQuery("DELETE FROM product").executeUpdate();
+    }
+
+    private static void listarProductos(Session session) {
+        List<Object[]> listaProductos = session.createNativeQuery("SELECT * FROM product").getResultList();
+        System.out.println("PRODUCTOS");
+        for (Object[] producto : listaProductos) {
+            System.out.println("id: " + producto[0] + ", name: " + producto[1] + ", price: " + producto[2]);
+        }
+    }
+
+    private static void insertarProductos(Session session) {
+        List<String> sqlQueries = Arrays.asList(
+                "INSERT INTO product VALUES(null, 'Yerba La Cumbrecita 500g', 35)",
+                "INSERT INTO product VALUES(null, 'Almidón de Mandioca Arapeguá 1kg', 80)",
+                "INSERT INTO product VALUES(null, 'Uvas rosadas 2kg', 110)");
+
+        for (String query : sqlQueries) {
+            session.createNativeQuery(query).executeUpdate();
+        }
     }
 
 }
