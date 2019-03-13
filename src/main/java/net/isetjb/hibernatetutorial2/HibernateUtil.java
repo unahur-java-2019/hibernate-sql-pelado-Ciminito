@@ -1,4 +1,4 @@
-package net.isetjb.hibernatetutorial1;
+package net.isetjb.hibernatetutorial2;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
