@@ -30,15 +30,18 @@ public class Application
 
     private static void borrarProductos(Session session) {
         Transaction transaction = session.beginTransaction();
-        session.createNativeQuery("DELETE FROM Product").executeUpdate();
+        session
+                .createNativeQuery("DELETE FROM Product")
+                .executeUpdate();
         transaction.commit();
     }
 
     private static void listarProductos(Session session) {
         List<Object[]> listaProductos = session.createNativeQuery("SELECT * FROM Product").getResultList();
+
         System.out.println("PRODUCTOS");
-        for (Object[] Producto : listaProductos) {
-            System.out.println("id: " + Producto[0] + ", name: " + Producto[1] + ", price: " + Producto[2]);
+        for (Object[] producto : listaProductos) {
+            System.out.println("id: " + producto[0] + ", name: " + producto[1] + ", price: " + producto[2]);
         }
     }
 
