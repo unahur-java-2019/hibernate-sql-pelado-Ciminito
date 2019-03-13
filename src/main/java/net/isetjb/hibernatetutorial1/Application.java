@@ -19,19 +19,19 @@ public class Application
     public static void main(String[] args)
     {
         Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
 
         borrarProductos(session);
         insertarProductos(session);
         listarProductos(session);
 
-        transaction.commit();
         session.close();
         HibernateUtil.closeSessionFactory();
     }
 
     private static void borrarProductos(Session session) {
+        Transaction transaction = session.beginTransaction();
         session.createNativeQuery("DELETE FROM product").executeUpdate();
+        transaction.commit();
     }
 
     private static void listarProductos(Session session) {
@@ -43,6 +43,7 @@ public class Application
     }
 
     private static void insertarProductos(Session session) {
+        Transaction transaction = session.beginTransaction();
         List<String> sqlQueries = Arrays.asList(
                 "INSERT INTO product VALUES(null, 'Yerba La Cumbrecita 500g', 35)",
                 "INSERT INTO product VALUES(null, 'Almidón de Mandioca Arapeguá 1kg', 80)",
@@ -51,6 +52,7 @@ public class Application
         for (String query : sqlQueries) {
             session.createNativeQuery(query).executeUpdate();
         }
+        transaction.commit();
     }
 
 }
